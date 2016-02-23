@@ -23,13 +23,17 @@ repeat
 			else
 				set trackInfo to "Nothing playing"
 			end if
-			do shell script "echo " & quoted form of trackInfo & " > $HOME/Developer/Livestreams/Current_Song.txt"
+			set scriptPath to POSIX path of ((path to me as text) & "::" & "iTunes_CurrentSong.txt")
+			do shell script "echo " & scriptPath
+			do shell script "echo " & quoted form of trackInfo & " > " & quoted form of scriptPath
 		end tell
 	else
 		set trackInfo to "iTunes is OFF"
-		do shell script "echo " & quoted form of trackInfo & " > $HOME/Developer/Livestreams/Current_Song.txt"
+		set scriptPath to POSIX path of ((path to me as text) & "::" & "iTunes_CurrentSong.txt")
+		do shell script "echo " & scriptPath
+		do shell script "echo " & quoted form of trackInfo & " > " & quoted form of scriptPath
 		
-		set answ to (display alert "iTunse is OFF. Do you want to run iTunes?" buttons {"Yes", "No"})
+		set answ to (display alert "iTunes is OFF. Do you want to run iTunes?" buttons {"Yes", "No"})
 		if button returned of result = "Yes" then
 			run application "iTunes"
 		else if button returned of result = "No" then
